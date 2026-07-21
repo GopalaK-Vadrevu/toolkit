@@ -161,3 +161,22 @@ func TestTools_UploadOneFile(t *testing.T) {
 	// wg.Wait()
 	// }
 }
+
+func TestTools_CreateDirIfnotExists(t *testing.T) {
+	var testTool Tools
+
+	dirName := "./testdata/myDir"
+
+	err := testTool.CreateDirIfNotExist(dirName)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	err = testTool.CreateDirIfNotExist(dirName)
+
+	if err != nil {
+		t.Error(err)
+	}
+	os.Remove(dirName)
+}
