@@ -207,3 +207,19 @@ func TestTools_Slugify(t *testing.T) {
 		}
 	}
 }
+
+func TestTools_DownloadStaticFile(t *testing.T) {
+	rr := httptest.NewRecorder()
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+
+	var tool Tools
+
+	tool.DownloadStaticFile(rr, req, "./testdata", "img.png", "pubbs.png")
+
+	res := rr.Result()
+	defer res.Body.Close()
+
+	if res.Header["Content-Length"][0] != "534283" {
+		t.Error("wrong content length of", res.Header["Content-Length"][0])
+	}
+}
